@@ -12,6 +12,6 @@ public interface Mapper<DTOType extends DTO, EntityType extends Entity> {
 
     public EntityType fromDTOToEntity(DTOType dto);
     public DTOType fromEntityToDTO(EntityType entity);
-    public Mapper<DTOType, EntityType> getMapper();
+
 
 }

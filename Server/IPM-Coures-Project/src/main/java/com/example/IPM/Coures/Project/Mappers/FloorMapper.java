@@ -2,11 +2,9 @@ package com.example.IPM.Coures.Project.Mappers;
 
 import com.example.IPM.Coures.Project.DTOs.FloorDTO;
 import com.example.IPM.Coures.Project.Entities.AdditionalConditionEntity;
-import com.example.IPM.Coures.Project.Entities.BlockEntity;
 import com.example.IPM.Coures.Project.Entities.FloorEntity;
 import com.example.IPM.Coures.Project.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -15,13 +13,13 @@ import java.util.stream.Collectors;
 public class FloorMapper implements Mapper<FloorDTO, FloorEntity>{
 
     @Autowired
-    BlockMapper blockMapper;
+    private BlockMapper blockMapper;
     @Autowired
-    AdditionalConditionRepository additionalConditionRepository;
+    private AdditionalConditionRepository additionalConditionRepository;
     @Autowired
-    DormitoryRepository dormitoryRepository;
+    private DormitoryRepository dormitoryRepository;
     @Autowired
-    ResponsiblePersonRepository responsiblePersonRepository;
+    private ResponsiblePersonRepository responsiblePersonRepository;
 
     @Override
     public FloorEntity fromDTOToEntity(FloorDTO dto) {
@@ -29,7 +27,11 @@ public class FloorMapper implements Mapper<FloorDTO, FloorEntity>{
         entity.setResponsiblePerson(responsiblePersonRepository.findById(dto.getResponsiblePerson()).orElse(null));
         entity.setAdditionalConditions(additionalConditionRepository.findByNameIn(dto.getAdditionalConditions()));
         entity.setDormitory(dormitoryRepository.findById(dto.getDormitory()).orElse(null));
-        entity.setBlocks(dto.getBlocks().stream().map(blockMapper::fromDTOToEntity).collect(Collectors.toList()));
+        try {
+            entity.setBlocks(dto.getBlocks().stream().map(blockMapper::fromDTOToEntity).collect(Collectors.toList()));
+        } catch (Exception e) {
+            entity.setBlocks(null);
+        }
         return entity;
     }
 
@@ -41,8 +43,16 @@ public class FloorMapper implements Mapper<FloorDTO, FloorEntity>{
         } catch(Exception e){
             dto.setDormitory(-1);
         }
-        dto.setBlocks(entity.getBlocks().stream().map(blockMapper::fromEntityToDTO).collect(Collectors.toList()));
-        dto.setAdditionalConditions(entity.getAdditionalConditions().stream().map(AdditionalConditionEntity::getName).collect(Collectors.toList()));
+        try {
+            dto.setBlocks(entity.getBlocks().stream().map(blockMapper::fromEntityToDTO).collect(Collectors.toList()));
+        } catch (Exception e) {
+            dto.setBlocks(null);
+        }
+        try {
+            dto.setAdditionalConditions(entity.getAdditionalConditions().stream().map(AdditionalConditionEntity::getName).collect(Collectors.toList()));
+        } catch (Exception e) {
+            dto.setAdditionalConditions(null);
+        }
         try {
             dto.setResponsiblePerson(entity.getResponsiblePerson().getFIO());
         } catch (Exception e) {
@@ -51,9 +61,4 @@ public class FloorMapper implements Mapper<FloorDTO, FloorEntity>{
         return dto;
     }
 
-    @Bean
-    @Override
-    public FloorMapper getMapper() {
-        return new FloorMapper();
-    }
 }

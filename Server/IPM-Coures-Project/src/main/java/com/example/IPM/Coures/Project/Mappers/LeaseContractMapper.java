@@ -2,17 +2,15 @@ package com.example.IPM.Coures.Project.Mappers;
 
 import com.example.IPM.Coures.Project.DTOs.LeaseContractDTO;
 import com.example.IPM.Coures.Project.Entities.LeaseContractEntity;
-import com.example.IPM.Coures.Project.Exceptions.RecordNotFoundException;
 import com.example.IPM.Coures.Project.repositories.ResidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LeaseContractMapper implements Mapper<LeaseContractDTO, LeaseContractEntity>{
 
     @Autowired
-    ResidentRepository residentRepository;
+    private ResidentRepository residentRepository;
 
     @Override
     public LeaseContractEntity fromDTOToEntity(LeaseContractDTO dto) {
@@ -31,10 +29,4 @@ public class LeaseContractMapper implements Mapper<LeaseContractDTO, LeaseContra
         }
         return dto;
     }
-    @Bean
-    @Override
-    public LeaseContractMapper getMapper() {
-        return new LeaseContractMapper();
-    }
-
 }

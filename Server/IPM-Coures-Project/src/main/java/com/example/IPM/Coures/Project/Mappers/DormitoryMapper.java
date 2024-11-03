@@ -7,7 +7,6 @@ import com.example.IPM.Coures.Project.Entities.ResponsiblePersonEntity;
 import com.example.IPM.Coures.Project.repositories.AdditionalConditionRepository;
 import com.example.IPM.Coures.Project.repositories.ResponsiblePersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -16,17 +15,21 @@ import java.util.stream.Collectors;
 public class DormitoryMapper implements Mapper<DormitoryDTO, DormitoryEntity>{
 
     @Autowired
-    FloorMapper floorMapper;
+    private FloorMapper floorMapper;
     @Autowired
-    AdditionalConditionRepository additionalConditionRepository;
+    private AdditionalConditionRepository additionalConditionRepository;
     @Autowired
-    ResponsiblePersonRepository responsiblePersonRepository;
+    private ResponsiblePersonRepository responsiblePersonRepository;
 
     @Override
     public DormitoryEntity fromDTOToEntity(DormitoryDTO dto) {
         DormitoryEntity entity = modelMapper.map(dto, DormitoryEntity.class);
         entity.setAdditionalConditions(additionalConditionRepository.findByNameIn(dto.getAdditionalConditions()));
-        entity.setFloors(dto.getFloors().stream().map(floorMapper::fromDTOToEntity).collect(Collectors.toList()));
+        try {
+            entity.setFloors(dto.getFloors().stream().map(floorMapper::fromDTOToEntity).collect(Collectors.toList()));
+        } catch (Exception e) {
+            entity.setFloors(null);
+        }
         entity.setResponsiblePersons(responsiblePersonRepository.findByIdIn(dto.getResponsiblePersons()));
         return entity;
     }
@@ -34,16 +37,23 @@ public class DormitoryMapper implements Mapper<DormitoryDTO, DormitoryEntity>{
     @Override
     public DormitoryDTO fromEntityToDTO(DormitoryEntity entity) {
         DormitoryDTO dto = modelMapper.map(entity, DormitoryDTO.class);
-        dto.setFloors(entity.getFloors().stream().map(floorMapper::fromEntityToDTO).collect(Collectors.toList()));
-        dto.setAdditionalConditions(entity.getAdditionalConditions().stream().map(AdditionalConditionEntity::getName).collect(Collectors.toList()));
-        dto.setResponsiblePersons(entity.getResponsiblePersons().stream().map(ResponsiblePersonEntity::getFIO).collect(Collectors.toList()));
+        try {
+            dto.setFloors(entity.getFloors().stream().map(floorMapper::fromEntityToDTO).collect(Collectors.toList()));
+        } catch (Exception e) {
+            dto.setFloors(null);
+        }
+        try {
+            dto.setAdditionalConditions(entity.getAdditionalConditions().stream().map(AdditionalConditionEntity::getName).collect(Collectors.toList()));
+        } catch (Exception e) {
+            dto.setAdditionalConditions(null);
+        }
+        try {
+            dto.setResponsiblePersons(entity.getResponsiblePersons().stream().map(ResponsiblePersonEntity::getFIO).collect(Collectors.toList()));
+        } catch (Exception e) {
+            dto.setResponsiblePersons(null);
+        }
         return dto;
 
     }
 
-    @Bean
-    @Override
-    public DormitoryMapper getMapper() {
-        return new DormitoryMapper();
-    }
 }

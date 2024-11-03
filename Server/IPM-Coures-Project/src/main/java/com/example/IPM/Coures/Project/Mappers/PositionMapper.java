@@ -2,7 +2,6 @@ package com.example.IPM.Coures.Project.Mappers;
 
 import com.example.IPM.Coures.Project.DTOs.PositionDTO;
 import com.example.IPM.Coures.Project.Entities.PositionEntity;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,9 +16,4 @@ public class PositionMapper implements Mapper<PositionDTO, PositionEntity>{
         return modelMapper.map(entity, PositionDTO.class);
     }
 
-    @Bean
-    @Override
-    public PositionMapper getMapper() {
-        return new PositionMapper();
-    }
 }
