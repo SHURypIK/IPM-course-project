@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "resident")
 @Data
-public class ResidentEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class ResidentEntity implements com.example.IPM.Coures.Project.general.Entity<String> {
 
     @Id
     @Column(name = "FIO")
@@ -40,5 +40,10 @@ public class ResidentEntity implements com.example.IPM.Coures.Project.general.En
     @ManyToOne
     @JoinColumn(name = "room")
     private RoomEntity room;
+
+    @Override
+    public String getId(){
+        return FIO;
+    }
 
 }

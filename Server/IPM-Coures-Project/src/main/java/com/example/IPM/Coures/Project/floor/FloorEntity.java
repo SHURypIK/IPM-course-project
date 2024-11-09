@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "floor")
 @Data
-public class FloorEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class FloorEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
     @Column(name = "number")
@@ -30,4 +30,9 @@ public class FloorEntity implements com.example.IPM.Coures.Project.general.Entit
     @ManyToOne
     @JoinColumn(name = "dormitory")
     private DormitoryEntity dormitory;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
 }

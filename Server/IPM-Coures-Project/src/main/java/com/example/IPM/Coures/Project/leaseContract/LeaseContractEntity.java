@@ -10,7 +10,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "lease_contract")
 @Data
-public class LeaseContractEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class LeaseContractEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
     @Id
     @Column(name = "lease_contract_number")
     private int id;
@@ -22,4 +22,9 @@ public class LeaseContractEntity implements com.example.IPM.Coures.Project.gener
     @OneToOne
     @JoinColumn(name = "tenant", nullable = false)
     private ResidentEntity tenant;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
 }

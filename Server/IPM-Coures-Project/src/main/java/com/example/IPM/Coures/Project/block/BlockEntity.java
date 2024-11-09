@@ -14,13 +14,14 @@ import java.util.List;
 @Entity
 @Table(name = "block")
 @Data
-public class BlockEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class BlockEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
     @Column(name = "number")
     private int id;
     @OneToMany(mappedBy = "block", cascade = CascadeType.ALL)
     private List<RoomEntity> rooms = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
     @Column(name = "designed_for")
     private Gender gender;
     @ManyToMany
@@ -29,6 +30,10 @@ public class BlockEntity implements com.example.IPM.Coures.Project.general.Entit
     @ManyToOne
     @JoinColumn(name = "floor")
     private FloorEntity floor;
+    @Override
+    public Integer getId() {
+        return id;
+    }
 
 
 }

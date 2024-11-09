@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "room")
 @Data
-public class RoomEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class RoomEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
     @Column(name = "number")
@@ -25,6 +25,7 @@ public class RoomEntity implements com.example.IPM.Coures.Project.general.Entity
     private int numberOfAvailablePlaces;
     @OneToMany(mappedBy = "room")
     private List<ResidentEntity> residents = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
     @Column(name = "designed_for")
     private Gender gender;
     @ManyToMany
@@ -33,4 +34,9 @@ public class RoomEntity implements com.example.IPM.Coures.Project.general.Entity
     @ManyToOne
     @JoinColumn(name = "block")
     private BlockEntity block;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
 }

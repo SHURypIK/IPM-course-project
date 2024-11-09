@@ -30,7 +30,7 @@ public class DormitoryMapper implements Mapper<DormitoryDTO, DormitoryEntity> {
         } catch (Exception e) {
             entity.setFloors(null);
         }
-        entity.setResponsiblePersons(responsiblePersonRepository.findByIdIn(dto.getResponsiblePersons()));
+        entity.setResponsiblePersons(responsiblePersonRepository.findByFIOIn(dto.getResponsiblePersons()));
         return entity;
     }
 

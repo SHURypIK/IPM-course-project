@@ -10,7 +10,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "medical_report")
 @Data
-public class MedicalReportEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class MedicalReportEntity implements com.example.IPM.Coures.Project.general.Entity<Long> {
     @Id
     @Column(name = "certificate_number")
     private long id;
@@ -21,4 +21,9 @@ public class MedicalReportEntity implements com.example.IPM.Coures.Project.gener
     @ManyToOne
     @JoinColumn(name = "patient", nullable = false)
     private ResidentEntity patient;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 }

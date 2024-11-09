@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "additional_condition")
 @Data
-public class AdditionalConditionEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class AdditionalConditionEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,11 @@ public class AdditionalConditionEntity implements com.example.IPM.Coures.Project
     @Enumerated(EnumType.STRING)
     @Column(name = "place")
     private List<AdditionalConditions> places = new ArrayList<>();
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
 
 
 }

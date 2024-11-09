@@ -8,5 +8,5 @@ import java.util.List;
 public interface ResponsiblePersonRepository extends CrudRepository<ResponsiblePersonEntity, String> {
     List<ResponsiblePersonEntity> findByPositionsContaining(PositionEntity position);
 
-    List<ResponsiblePersonEntity> findByIdIn(List<String> ids);
+    List<ResponsiblePersonEntity> findByFIOIn(List<String> ids);
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "user")
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-public class UserEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class UserEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -20,5 +20,10 @@ public class UserEntity implements com.example.IPM.Coures.Project.general.Entity
     @Column(name = "password")
     private String hashedPassword;
     private byte[] sold;
+
+    @Override
+    public Integer getId(){
+        return id;
+    }
 
 }

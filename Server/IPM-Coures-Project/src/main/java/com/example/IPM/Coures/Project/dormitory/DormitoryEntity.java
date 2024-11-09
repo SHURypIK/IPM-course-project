@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "dormitory")
 @Data
-public class DormitoryEntity implements com.example.IPM.Coures.Project.general.Entity {
+public class DormitoryEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +29,9 @@ public class DormitoryEntity implements com.example.IPM.Coures.Project.general.E
     @ManyToMany
     @JoinTable(name = "dormitory-responsible_persons", joinColumns = @JoinColumn(name = "dormitory"), inverseJoinColumns = @JoinColumn(name = "responsible_persons"))
     private List<ResponsiblePersonEntity> responsiblePersons = new ArrayList<>();
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
 }
