@@ -5,6 +5,7 @@ import com.example.IPM.Coures.Project.additionalCondition.AdditionalConditionRep
 import com.example.IPM.Coures.Project.block.BlockRepository;
 import com.example.IPM.Coures.Project.general.Mapper;
 import com.example.IPM.Coures.Project.resident.ResidentMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class RoomMapper implements Mapper<RoomDTO, RoomEntity> {
+
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public RoomMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
     @Autowired
     private BlockRepository blockRepository;
     @Autowired
@@ -21,7 +30,7 @@ public class RoomMapper implements Mapper<RoomDTO, RoomEntity> {
     @Override
     public RoomEntity fromDTOToEntity(RoomDTO dto) {
         RoomEntity entity = modelMapper.map(dto, RoomEntity.class);
-        entity.setBlock(blockRepository.findById(dto.getBlock()).orElse(null));
+        entity.setBlock(blockRepository.findById(dto.getBlockId()).orElse(null));
         entity.setAdditionalConditions(additionalConditionRepository.findByNameIn(dto.getAdditionalConditions()));
         try {
             entity.setResidents(dto.getResidents().stream().map(residentMapper::fromDTOToEntity).collect(Collectors.toList()));
@@ -35,9 +44,9 @@ public class RoomMapper implements Mapper<RoomDTO, RoomEntity> {
     public RoomDTO fromEntityToDTO(RoomEntity entity) {
         RoomDTO dto = modelMapper.map(entity, RoomDTO.class);
         try{
-            dto.setBlock(entity.getBlock().getId());
+            dto.setBlockId(entity.getBlock().getId());
         } catch(Exception e){
-            dto.setBlock(-1);
+            dto.setBlockId(-1);
         }
         try {
             dto.setAdditionalConditions(entity.getAdditionalConditions().stream().map(AdditionalConditionEntity::getName).collect(Collectors.toList()));

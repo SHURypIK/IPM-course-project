@@ -7,6 +7,8 @@ import com.example.IPM.Coures.Project.general.Enums.SettlementBenefit;
 import com.example.IPM.Coures.Project.general.Enums.Status;
 import com.example.IPM.Coures.Project.leaseContract.LeaseContractEntity;
 import com.example.IPM.Coures.Project.medicalReport.MedicalReportEntity;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -18,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "resident")
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ResidentEntity implements com.example.IPM.Coures.Project.general.Entity<String> {
 
     @Id
@@ -38,7 +41,7 @@ public class ResidentEntity implements com.example.IPM.Coures.Project.general.En
     @Column(name = "benefit", nullable = false)
     private SettlementBenefit benefit;
     @ManyToOne
-    @JoinColumn(name = "room")
+    @JoinColumn(name = "room", foreignKey = @ForeignKey(name = "room"))
     private RoomEntity room;
 
     @Override

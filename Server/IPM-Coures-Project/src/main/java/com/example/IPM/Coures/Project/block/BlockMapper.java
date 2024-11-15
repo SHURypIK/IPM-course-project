@@ -5,6 +5,7 @@ import com.example.IPM.Coures.Project.additionalCondition.AdditionalConditionRep
 import com.example.IPM.Coures.Project.room.RoomMapper;
 import com.example.IPM.Coures.Project.general.Mapper;
 import com.example.IPM.Coures.Project.floor.FloorRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class BlockMapper implements Mapper<BlockDTO, BlockEntity> {
+
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public BlockMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
     @Autowired
     private RoomMapper roomMapper;
     @Autowired
@@ -28,7 +37,7 @@ public class BlockMapper implements Mapper<BlockDTO, BlockEntity> {
             entity.setRooms(null);
         }
         entity.setAdditionalConditions(additionalConditionRepository.findByNameIn(dto.getAdditionalConditions()));
-        entity.setFloor(floorRepository.findById(dto.getFloor()).orElse(null));
+        entity.setFloor(floorRepository.findById(dto.getFloorId()).orElse(null));
         return entity;
     }
 
@@ -36,9 +45,9 @@ public class BlockMapper implements Mapper<BlockDTO, BlockEntity> {
     public BlockDTO fromEntityToDTO(BlockEntity entity) {
         BlockDTO dto = modelMapper.map(entity, BlockDTO.class);
         try{
-            dto.setFloor(entity.getFloor().getId());
+            dto.setFloorId(entity.getFloor().getId());
         } catch (Exception e){
-            dto.setFloor(-1);
+            dto.setFloorId(-1);
         }
         try {
             dto.setRooms(entity.getRooms().stream().map(roomMapper::fromEntityToDTO).collect(Collectors.toList()));

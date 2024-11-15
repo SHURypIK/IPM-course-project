@@ -3,14 +3,13 @@ package com.example.IPM.Coures.Project.room;
 import com.example.IPM.Coures.Project.additionalCondition.AdditionalConditionEntity;
 import com.example.IPM.Coures.Project.block.BlockEntity;
 import com.example.IPM.Coures.Project.general.Enums.Gender;
+import com.example.IPM.Coures.Project.general.wrappers.CrudAndPaging;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface RoomRepository extends PagingAndSortingRepository<RoomEntity,Integer>, CrudRepository<RoomEntity,Integer> {
+public interface RoomRepository extends CrudAndPaging<RoomEntity,Integer> {
 
     List<RoomEntity> findByGender(Gender gender);
 

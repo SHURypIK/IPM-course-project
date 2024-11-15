@@ -16,6 +16,6 @@ public class AdditionalConditionDTO implements DTO {
 
     private int id;
     private String name;
-    private List<AdditionalConditions> place = new ArrayList<>();
+    private List<AdditionalConditions> places = new ArrayList<>();
 
 }

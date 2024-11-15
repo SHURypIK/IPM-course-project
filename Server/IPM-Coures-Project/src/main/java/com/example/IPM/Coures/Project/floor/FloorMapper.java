@@ -6,6 +6,7 @@ import com.example.IPM.Coures.Project.block.BlockMapper;
 import com.example.IPM.Coures.Project.dormitory.DormitoryRepository;
 import com.example.IPM.Coures.Project.general.Mapper;
 import com.example.IPM.Coures.Project.responsiblePerson.ResponsiblePersonRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class FloorMapper implements Mapper<FloorDTO, FloorEntity> {
+
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public FloorMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @Autowired
     private BlockMapper blockMapper;
@@ -28,7 +36,7 @@ public class FloorMapper implements Mapper<FloorDTO, FloorEntity> {
         FloorEntity entity = modelMapper.map(dto, FloorEntity.class);
         entity.setResponsiblePerson(responsiblePersonRepository.findById(dto.getResponsiblePerson()).orElse(null));
         entity.setAdditionalConditions(additionalConditionRepository.findByNameIn(dto.getAdditionalConditions()));
-        entity.setDormitory(dormitoryRepository.findById(dto.getDormitory()).orElse(null));
+        entity.setDormitory(dormitoryRepository.findById(dto.getDormitoryId()).orElse(null));
         try {
             entity.setBlocks(dto.getBlocks().stream().map(blockMapper::fromDTOToEntity).collect(Collectors.toList()));
         } catch (Exception e) {
@@ -41,9 +49,9 @@ public class FloorMapper implements Mapper<FloorDTO, FloorEntity> {
     public FloorDTO fromEntityToDTO(FloorEntity entity) {
         FloorDTO dto = modelMapper.map(entity, FloorDTO.class);
         try{
-            dto.setDormitory(entity.getDormitory().getId());
+            dto.setDormitoryId(entity.getDormitory().getId());
         } catch(Exception e){
-            dto.setDormitory(-1);
+            dto.setDormitoryId(-1);
         }
         try {
             dto.setBlocks(entity.getBlocks().stream().map(blockMapper::fromEntityToDTO).collect(Collectors.toList()));

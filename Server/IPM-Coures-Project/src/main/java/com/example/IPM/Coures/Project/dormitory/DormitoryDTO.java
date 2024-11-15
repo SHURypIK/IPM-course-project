@@ -15,6 +15,7 @@ import java.util.List;
 public class DormitoryDTO implements DTO {
 
     private int id;
+    private int number;
     private List<FloorDTO> floors = new ArrayList<>();
     private List<String> additionalConditions = new ArrayList<>();
     private String address;

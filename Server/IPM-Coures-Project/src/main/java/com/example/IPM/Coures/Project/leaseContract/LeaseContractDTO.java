@@ -16,6 +16,6 @@ public class LeaseContractDTO implements DTO {
     private String lessee;
     private Date validUntil;
     private Date contractDate;
-    private String tenant;
+    private String tenantFIO;
 
 }

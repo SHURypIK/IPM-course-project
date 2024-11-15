@@ -20,7 +20,7 @@ public abstract class BaseCrudService<T extends Entity,D extends DTO,ID> {
             T entity = mapper.fromDTOToEntity(dto);
             if(repository.existsById((ID) entity.getId()))
                 throw new MyError("Объект уже существует");
-            repository.save(entity);
+            entity = repository.save(entity);
             return mapper.fromEntityToDTO(entity);
         } catch (Exception e){
             throw new MyError("Не получилось сохранить" + e.getMessage());
@@ -37,7 +37,7 @@ public abstract class BaseCrudService<T extends Entity,D extends DTO,ID> {
         try {
             repository.delete(mapper.fromDTOToEntity(dto));
         } catch (Exception e){
-            throw new MyError("Не получилось удалить");
+            throw new MyError("Не получилось удалить" + e.getMessage());
         }
     }
     public D update(D dto, ID id) throws MyError {
@@ -46,14 +46,30 @@ public abstract class BaseCrudService<T extends Entity,D extends DTO,ID> {
            T entity = mapper.fromDTOToEntity(dto);
            if(!id.equals(entity.getId()))
                throw new MyError("Переданы разные id");
-           repository.save(entity);
+           entity = repository.save(entity);
            return mapper.fromEntityToDTO(entity);
         } catch (Exception e){
             throw new MyError("Не получилось обновить" + e.getMessage());
         }
     }
+
+    public D updateWithId(D dto, ID id) throws MyError {
+        try {
+            repository.findById(id).orElseThrow(() -> new MyError("Запись не найдена"));
+            repository.deleteById(id);
+            T entity = mapper.fromDTOToEntity(dto);
+            entity = repository.save(entity);
+            return mapper.fromEntityToDTO(entity);
+        } catch (Exception e){
+            throw new MyError("Не получилось обновить" + e.getMessage());
+        }
+    }
     public D getById(ID id) throws MyError {
-        return repository.findById(id).map(mapper::fromEntityToDTO).orElseThrow(() -> new MyError("Запись не найдена"));
+        try {
+            return repository.findById(id).map(mapper::fromEntityToDTO).orElseThrow(() -> new MyError("Запись не найдена"));
+        } catch (Exception e) {
+            throw new MyError("опять маппер " + e.getMessage());
+        }
     }
     public List<D> getAll() throws MyError {
         List<D> ds= null;

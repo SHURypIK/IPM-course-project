@@ -6,6 +6,7 @@ import com.example.IPM.Coures.Project.floor.FloorMapper;
 import com.example.IPM.Coures.Project.responsiblePerson.ResponsiblePersonEntity;
 import com.example.IPM.Coures.Project.general.Mapper;
 import com.example.IPM.Coures.Project.responsiblePerson.ResponsiblePersonRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class DormitoryMapper implements Mapper<DormitoryDTO, DormitoryEntity> {
+
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public DormitoryMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @Autowired
     private FloorMapper floorMapper;

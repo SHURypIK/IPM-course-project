@@ -1,0 +1,9 @@
+ALTER TABLE lease_contract
+DROP FOREIGN KEY tenet;
+
+ALTER TABLE lease_contract
+ADD CONSTRAINT tenet
+FOREIGN KEY (tenant)
+REFERENCES resident (fio)
+ON DELETE CASCADE
+ON UPDATE CASCADE;

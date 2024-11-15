@@ -17,15 +17,17 @@ import java.util.List;
 public class FloorEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
-    @Column(name = "number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "number")
+    private int number;
     @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL)
     private List<BlockEntity> blocks = new ArrayList<>();
     @ManyToMany
-    @JoinTable(name = "add-conditional_floor", joinColumns = @JoinColumn(name = "floor"), inverseJoinColumns = @JoinColumn(name = "additional_condition"))
+    @JoinTable(name = "add_conditional_floor", joinColumns = @JoinColumn(name = "floor", foreignKey = @ForeignKey(name = "floor_condition")), inverseJoinColumns = @JoinColumn(name = "additional_condition", foreignKey = @ForeignKey(name = "condition_floor")))
     private List<AdditionalConditionEntity> additionalConditions = new ArrayList<>();
     @ManyToOne
-    @JoinColumn(name = "responsible_person")
+    @JoinColumn(name = "responsible_person", foreignKey = @ForeignKey(name = "person_floor"))
     private ResponsiblePersonEntity responsiblePerson;
     @ManyToOne
     @JoinColumn(name = "dormitory")

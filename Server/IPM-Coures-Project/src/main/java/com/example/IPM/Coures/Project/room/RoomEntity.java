@@ -17,8 +17,10 @@ import java.util.List;
 public class RoomEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
-    @Column(name = "number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "number")
+    private int number;
     @Column(name = "number_of_places")
     private int numberOfPlaces;
     @Column(name = "number_of_available_places")
@@ -29,7 +31,7 @@ public class RoomEntity implements com.example.IPM.Coures.Project.general.Entity
     @Column(name = "designed_for")
     private Gender gender;
     @ManyToMany
-    @JoinTable(name = "add-conditional_room", joinColumns = @JoinColumn(name = "room"), inverseJoinColumns = @JoinColumn(name = "additional_condition"))
+    @JoinTable(name = "add_conditional_room", joinColumns = @JoinColumn(name = "room", foreignKey = @ForeignKey(name = "room_condition")), inverseJoinColumns = @JoinColumn(name = "additional_condition", foreignKey = @ForeignKey(name = "condition_room")))
     private List<AdditionalConditionEntity> additionalConditions = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "block")

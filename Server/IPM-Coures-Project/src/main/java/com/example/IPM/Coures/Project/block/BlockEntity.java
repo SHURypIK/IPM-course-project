@@ -17,15 +17,17 @@ import java.util.List;
 public class BlockEntity implements com.example.IPM.Coures.Project.general.Entity<Integer> {
 
     @Id
-    @Column(name = "number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "number")
+    private int number;
     @OneToMany(mappedBy = "block", cascade = CascadeType.ALL)
     private List<RoomEntity> rooms = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     @Column(name = "designed_for")
     private Gender gender;
     @ManyToMany
-    @JoinTable(name = "add-conditional_block", joinColumns = @JoinColumn(name = "block"), inverseJoinColumns = @JoinColumn(name = "additional_condition"))
+    @JoinTable(name = "add_conditional_block", joinColumns = @JoinColumn(name = "block", foreignKey = @ForeignKey(name = "block_condition")), inverseJoinColumns = @JoinColumn(name = "additional_condition", foreignKey = @ForeignKey(name = "condition_block")))
     private List<AdditionalConditionEntity> additionalConditions = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "floor")

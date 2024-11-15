@@ -20,7 +20,7 @@ public class AdditionalConditionEntity implements com.example.IPM.Coures.Project
     @Column(unique = true)
     private String name;
     @ElementCollection
-    @CollectionTable(name = "additional-condition_places", joinColumns = @JoinColumn(name = "additional-condition"))
+    @CollectionTable(name = "additional_condition_places", joinColumns = @JoinColumn(name = "additional_condition", foreignKey = @ForeignKey(name = "additional_condition")))
     @Enumerated(EnumType.STRING)
     @Column(name = "place")
     private List<AdditionalConditions> places = new ArrayList<>();

@@ -1,9 +1,9 @@
 package com.example.IPM.Coures.Project.general;
 
+import com.example.IPM.Coures.Project.general.wrappers.CrudAndPaging;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.List;
 public abstract class BasePagingAndSortingService<T extends Entity, D extends DTO, ID> extends BaseCrudService<T,D,ID>{
 
     protected final PagingAndSortingRepository<T, ID> pagingAndSortingRepository;
-    public BasePagingAndSortingService(CrudRepository<T, ID> repository, Mapper<D, T> mapper, PagingAndSortingRepository<T, ID> pagingAndSortingRepository) {
+    public BasePagingAndSortingService(CrudAndPaging<T, ID> repository, Mapper<D, T> mapper) {
         super(repository, mapper);
-        this.pagingAndSortingRepository = pagingAndSortingRepository;
+        this.pagingAndSortingRepository = repository;
     }
 
     public List<D> findAll(Sort sort) throws MyError {
@@ -38,4 +38,5 @@ public abstract class BasePagingAndSortingService<T extends Entity, D extends DT
             throw new MyError("Не получилось найти записи с пагинацией");
         }
     }
+
 }

@@ -49,6 +49,15 @@ public abstract class BaseCrudController<T extends Entity, D extends DTO, ID> {
         }
     }
 
+    @PutMapping("/withId/{id}")
+    public ResponseEntity updateWithId(@PathVariable ID id, @RequestBody D dto) {
+        try {
+            return ResponseEntity.ok(service.updateWithId(dto, id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteById(@PathVariable ID id) {
         try {

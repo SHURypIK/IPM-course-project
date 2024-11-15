@@ -46,6 +46,11 @@ public class PositionController extends BaseCrudController<PositionEntity, Posit
         return super.delete(dto);
     }
 
+    @PutMapping("/withId/{id}")
+    public ResponseEntity updateWithId(@PathVariable Integer id, @RequestBody PositionDTO dto) {
+        return super.updateWithId(id,dto);
+    }
+
     @GetMapping("/getByName/{name}")
     public ResponseEntity getByName(@PathVariable String name) {
         try {
@@ -55,7 +60,7 @@ public class PositionController extends BaseCrudController<PositionEntity, Posit
         }
     }
 
-    @GetMapping("/getByNames")
+    @PutMapping("/getByNames")
     public ResponseEntity getByName(@RequestBody List<String> names) {
         try {
             return ResponseEntity.ok(service.findByName(names));

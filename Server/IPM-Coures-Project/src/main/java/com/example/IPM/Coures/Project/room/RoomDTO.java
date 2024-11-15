@@ -16,11 +16,12 @@ import java.util.List;
 public class RoomDTO implements DTO {
 
     private int id;
+    private int number;
     private int numberOfPlaces;
     private int numberOfAvailablePlaces;
     private List<ResidentDTO> residents = new ArrayList<>();
     private Gender gender;
     private List<String> additionalConditions = new ArrayList<>();
-    private int block;
+    private int blockId;
 
 }

@@ -1,0 +1,9 @@
+ALTER TABLE medical_report
+DROP FOREIGN KEY patient;
+
+ALTER TABLE medical_report
+ADD CONSTRAINT patient
+FOREIGN KEY (patient)
+REFERENCES resident (fio)
+ON DELETE CASCADE
+ON UPDATE CASCADE;

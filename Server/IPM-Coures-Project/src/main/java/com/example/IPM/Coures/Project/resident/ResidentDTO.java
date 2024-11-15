@@ -25,4 +25,12 @@ public class ResidentDTO implements DTO {
     private List<MedicalReportDTO> medicalReports;
     private LeaseContractDTO leaseContract;
     private SettlementBenefit benefit;
+
+    public List<MedicalReportDTO> getMedicalReports() {
+        return medicalReports;
+    }
+
+    public LeaseContractDTO getLeaseContract() {
+        return leaseContract;
+    }
 }

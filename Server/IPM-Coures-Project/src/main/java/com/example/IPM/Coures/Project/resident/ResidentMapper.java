@@ -3,12 +3,20 @@ package com.example.IPM.Coures.Project.resident;
 import com.example.IPM.Coures.Project.general.ShortMapper;
 import com.example.IPM.Coures.Project.leaseContract.LeaseContractMapper;
 import com.example.IPM.Coures.Project.medicalReport.MedicalReportMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 @Component
 public class ResidentMapper implements ShortMapper<ResidentDTO, ResidentShortDTO, ResidentEntity> {
+
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public ResidentMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @Autowired
     private LeaseContractMapper leaseContractMapper;

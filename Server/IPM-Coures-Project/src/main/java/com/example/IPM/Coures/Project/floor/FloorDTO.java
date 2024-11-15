@@ -15,9 +15,10 @@ import java.util.List;
 public class FloorDTO implements DTO {
 
     private int id;
+    private int number;
     private List<BlockDTO> blocks = new ArrayList<>();
     private List<String> additionalConditions = new ArrayList<>();
     private String responsiblePerson;
-    private int dormitory;
+    private int dormitoryId;
 
 }

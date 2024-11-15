@@ -16,9 +16,10 @@ import java.util.List;
 public class BlockDTO implements DTO {
 
     private int id;
+    private int number;
     private List<RoomDTO> rooms = new ArrayList<>();
     private Gender gender;
     private List<String> additionalConditions = new ArrayList<>();
-    private int floor;
+    private int floorId;
 
 }
