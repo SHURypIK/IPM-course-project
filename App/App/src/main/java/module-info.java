@@ -6,6 +6,7 @@ module com.example.app {
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
+    requires lombok;
 
     opens com.example.app to javafx.fxml;
     exports com.example.app;
