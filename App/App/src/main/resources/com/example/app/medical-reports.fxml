@@ -19,10 +19,10 @@
         <content>
           <AnchorPane>
                <children>
-                  <GridPane fx:id="medical_report_pane" layoutX="50.0" layoutY="521.0" minHeight="60.0" minWidth="1200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+                  <GridPane fx:id="medical_report_pane" layoutX="50.0" layoutY="521.0" minHeight="60.0" minWidth="1200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,37 +33,37 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Номер">
+                        <Label text="Здоров">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Здоров" GridPane.columnIndex="1">
+                        <Label text="Годен до" GridPane.columnIndex="1">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Годен до" GridPane.columnIndex="2">
+                        <Label text="Доктор" GridPane.columnIndex="2">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Доктор" GridPane.columnIndex="3">
+                        <Label text="Тип" GridPane.columnIndex="3">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Тип" GridPane.columnIndex="4">
+                        <Label text="Изменить" GridPane.columnIndex="4">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Изменить" GridPane.columnIndex="5">
+                        <Label text="Удалить" GridPane.columnIndex="5">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Удалить" GridPane.columnIndex="6">
+                        <Label text="Восстановить" GridPane.columnIndex="6">
                            <font>
                               <Font size="14.0" />
                            </font>

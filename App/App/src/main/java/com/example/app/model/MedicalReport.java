@@ -42,4 +42,28 @@ public class MedicalReport {
     public MedicalReportType getType() {
         return type;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFit(boolean fit) {
+        this.fit = fit;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
+
+    public void setValidUntil(LocalDate validUntil) {
+        this.validUntil = validUntil;
+    }
+
+    public void setPatientFIO(String patientFIO) {
+        this.patientFIO = patientFIO;
+    }
+
+    public void setType(MedicalReportType type) {
+        this.type = type;
+    }
 }

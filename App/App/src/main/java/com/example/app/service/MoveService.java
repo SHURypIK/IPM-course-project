@@ -95,7 +95,14 @@ public class MoveService {
         Button editButton = new Button("Редактировать");
         editButton.setFont(new Font(14));
         editButton.setOnAction(event -> {
-            // Ваш код для обработки нажатия на кнопку
+            try {
+                SceneManager.switchScene("medical-reports.fxml");
+                Stage stage = SceneManager.getPrimaryStage();
+                stage.setMaximized(false);
+                stage.setMaximized(true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         Label header1 = new Label("Номер");
