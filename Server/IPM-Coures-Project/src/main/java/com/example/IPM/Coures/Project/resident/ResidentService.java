@@ -88,12 +88,17 @@ public class ResidentService extends BasePagingAndSortingService<ResidentEntity,
 
     public ResidentDTO moveIn(ResidentDTO dto, int roomId) throws MyError {
         try {
-            ResidentEntity entity = repository.save(mapper.fromDTOToEntity(dto));
+            ResidentEntity resident = mapper.fromDTOToEntity(dto);
+            resident.setStatus(Status.SETTLED);
             RoomEntity room = roomRepository.findById(roomId).get();
-            entity.setRoom(room);
+            resident.setRoom(room);
+            ResidentEntity entity = repository.save(resident);
             room.setNumberOfAvailablePlaces(room.getNumberOfAvailablePlaces()-1);
+            List<ResidentEntity> residentEntities = room.getResidents();
+            residentEntities.add(entity);
+            room.setResidents(residentEntities);
             roomRepository.save(room);
-            return mapper.fromEntityToDTO(entity);
+            return mapper.fromEntityToDTO(resident);
         } catch (Exception e) {
             throw new MyError("не получилось заселить" + e.getMessage());
         }
@@ -101,12 +106,17 @@ public class ResidentService extends BasePagingAndSortingService<ResidentEntity,
 
     public ResidentDTO moveOut(ResidentDTO dto, int roomId) throws MyError {
         try {
-            ResidentEntity entity = repository.save(mapper.fromDTOToEntity(dto));
+            ResidentEntity resident = mapper.fromDTOToEntity(dto);
+            resident.setStatus(Status.EXPECTING);
             RoomEntity room = roomRepository.findById(roomId).get();
-            entity.setRoom(null);
+            resident.setRoom(null);
+            ResidentEntity entity = repository.save(resident);
             room.setNumberOfAvailablePlaces(room.getNumberOfAvailablePlaces()+1);
+            List<ResidentEntity> residentEntities = room.getResidents();
+            residentEntities.remove(resident);
+            room.setResidents(residentEntities);
             roomRepository.save(room);
-            return mapper.fromEntityToDTO(entity);
+            return mapper.fromEntityToDTO(resident);
         } catch (Exception e) {
             throw new MyError("не получилось заселить" + e.getMessage());
         }

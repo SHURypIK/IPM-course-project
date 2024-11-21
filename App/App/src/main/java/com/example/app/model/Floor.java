@@ -19,4 +19,27 @@ public class Floor {
     private String responsiblePerson;
     private int dormitoryId;
 
+    public int getId() {
+        return id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public List<Block> getBlocks() {
+        return blocks;
+    }
+
+    public List<String> getAdditionalConditions() {
+        return additionalConditions;
+    }
+
+    public String getResponsiblePerson() {
+        return responsiblePerson;
+    }
+
+    public int getDormitoryId() {
+        return dormitoryId;
+    }
 }

@@ -19,4 +19,27 @@ public class Dormitory {
     private String address;
     private List<String> responsiblePersons = new ArrayList<>();
 
+    public int getId() {
+        return id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public List<Floor> getFloors() {
+        return floors;
+    }
+
+    public List<String> getAdditionalConditions() {
+        return additionalConditions;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public List<String> getResponsiblePersons() {
+        return responsiblePersons;
+    }
 }

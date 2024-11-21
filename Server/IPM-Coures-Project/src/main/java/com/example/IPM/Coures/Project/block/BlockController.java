@@ -7,7 +7,8 @@ import com.example.IPM.Coures.Project.general.Enums.Gender;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@RestController
+@RequestMapping("/block")
 public class BlockController extends BasePagingAndSortingController<BlockEntity, BlockDTO,Integer> {
 
     private final BlockService service;

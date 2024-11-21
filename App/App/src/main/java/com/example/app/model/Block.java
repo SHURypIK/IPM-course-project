@@ -20,4 +20,27 @@ public class Block {
     private List<String> additionalConditions = new ArrayList<>();
     private int floorId;
 
+    public int getId() {
+        return id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public List<String> getAdditionalConditions() {
+        return additionalConditions;
+    }
+
+    public int getFloorId() {
+        return floorId;
+    }
 }

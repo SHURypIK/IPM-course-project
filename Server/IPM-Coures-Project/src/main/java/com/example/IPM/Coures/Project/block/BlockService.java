@@ -8,10 +8,12 @@ import com.example.IPM.Coures.Project.general.BasePagingAndSortingService;
 import com.example.IPM.Coures.Project.general.Enums.Gender;
 import com.example.IPM.Coures.Project.general.MyError;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class BlockService extends BasePagingAndSortingService<BlockEntity,BlockDTO,Integer> {
 
     private final BlockMapper mapper;

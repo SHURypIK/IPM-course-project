@@ -128,7 +128,7 @@ public class ResidentController extends BasePagingAndSortingController<ResidentE
     @PutMapping("/moveOut")
     public ResponseEntity moveOut(@RequestBody ResidentDTO dto,@RequestParam int id) {
         try {
-            return ResponseEntity.ok(service.moveIn(dto, id));
+            return ResponseEntity.ok(service.moveOut(dto, id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
