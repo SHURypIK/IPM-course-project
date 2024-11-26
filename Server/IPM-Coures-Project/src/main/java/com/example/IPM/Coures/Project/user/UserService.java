@@ -65,9 +65,9 @@ public class UserService extends BasePagingAndSortingService<UserEntity,UserDTO,
         return newHashedPassword.equals(hashedPassword);
     }
 
-    public boolean deleteByLogin(UserDTO dto) throws MyError {
+    public boolean deleteByLogin(String login) throws MyError {
         try {
-            repository.deleteByLogin(dto.getLogin());
+            repository.deleteByLogin(login);
             return true;
         } catch (Exception e) {
             throw new MyError("Не получилось удалить по этажу");

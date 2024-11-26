@@ -63,7 +63,15 @@ public class ContractController {
                 stage.setMaximized(false);
                 stage.setMaximized(true);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Предупреждение закроется автоматически");
+
+                alert.show();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                pause.setOnFinished(eventt -> alert.close());
+                pause.play();
             }
         });
         fill();
@@ -94,7 +102,15 @@ public class ContractController {
             try {
                 contract = ContractService.save(newContract);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Предупреждение закроется автоматически");
+
+                alert.show();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                pause.setOnFinished(eventt -> alert.close());
+                pause.play();
             }
             add_button.setDisable(true);
             update_button.setDisable(true);
@@ -105,7 +121,15 @@ public class ContractController {
             try {
                 contract = ContractService.delete(contract);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Предупреждение закроется автоматически");
+
+                alert.show();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                pause.setOnFinished(eventt -> alert.close());
+                pause.play();
             }
             contract_date_field.setValue(null);
             until_date_field.setValue(null);

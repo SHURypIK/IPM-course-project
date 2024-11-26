@@ -35,7 +35,12 @@ public class RoomController extends BasePagingAndSortingController<RoomEntity,Ro
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteById(@PathVariable Integer id) {
-        return super.deleteById(id);
+        try {
+            service.deleteById(id);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     @DeleteMapping("/delete")
     public ResponseEntity delete(@RequestBody RoomDTO dto) {

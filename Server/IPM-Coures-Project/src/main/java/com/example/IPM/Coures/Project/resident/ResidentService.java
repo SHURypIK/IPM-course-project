@@ -127,8 +127,6 @@ public class ResidentService extends BasePagingAndSortingService<ResidentEntity,
             ResidentEntity entity = mapper.fromDTOToEntity(dto);
             if(repository.existsById(entity.getId()))
                 throw new MyError("Объект уже существует");
-            LeaseContractEntity leaseContract = entity.getLeaseContract();
-            leaseContract.setTenant(entity);
             repository.save(entity);
             return mapper.fromEntityToDTO(entity);
         } catch (Exception e){

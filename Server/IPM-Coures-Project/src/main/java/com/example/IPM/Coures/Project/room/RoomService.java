@@ -6,7 +6,10 @@ import com.example.IPM.Coures.Project.block.BlockDTO;
 import com.example.IPM.Coures.Project.block.BlockMapper;
 import com.example.IPM.Coures.Project.general.BasePagingAndSortingService;
 import com.example.IPM.Coures.Project.general.Enums.Gender;
+import com.example.IPM.Coures.Project.general.Enums.Status;
 import com.example.IPM.Coures.Project.general.MyError;
+import com.example.IPM.Coures.Project.resident.ResidentEntity;
+import com.example.IPM.Coures.Project.resident.ResidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,8 @@ public class RoomService extends BasePagingAndSortingService<RoomEntity,RoomDTO,
     private BlockMapper blockMapper;
     @Autowired
     private AdditionalConditionMapper additionalConditionMapper;
+    @Autowired
+    private ResidentRepository residentRepository;
     public RoomService(RoomRepository repository, RoomMapper mapper) {
         super(repository, mapper);
         this.repository = repository;
@@ -58,6 +63,20 @@ public class RoomService extends BasePagingAndSortingService<RoomEntity,RoomDTO,
             return repository.findByGender(gender).stream().map(mapper::fromEntityToDTO).collect(Collectors.toList());
         } catch (Exception e) {
             throw new MyError("Не получилось найти по общежитию");
+        }
+    }
+
+
+    public void deleteById(int id) throws MyError {
+        try {
+            RoomEntity entity = repository.findById(id).get();
+            for (ResidentEntity resident: entity.getResidents()){
+                resident.setStatus(Status.EXPECTING);
+                residentRepository.save(resident);
+            }
+            repository.deleteById(id);
+        } catch (Exception e){
+            throw new MyError("Не получилось удалить" + e.getMessage());
         }
     }
 }

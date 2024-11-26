@@ -74,6 +74,7 @@ public class MedicalReportsController {
 
         fill();
 
+        add_button.setDisable(true);
         add_button.setOnAction(event -> {
             try {
                 MedicalReport report = new MedicalReport();
@@ -102,10 +103,11 @@ public class MedicalReportsController {
     }
 
     private boolean areAllFieldsFilled() {
-        return id_field.getText() != null && !id_field.getText().isEmpty()
+       boolean b = id_field.getText() != null && !id_field.getText().isEmpty()
                 && doctor_field.getText() != null && !doctor_field.getText().isEmpty()
                 && date_field.getValue() != null
                 && type_field.getValue() != null && !type_field.getValue().isEmpty();
+       return b;
     }
 
     private void fill(){

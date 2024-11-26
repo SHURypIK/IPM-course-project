@@ -19,7 +19,7 @@
         <content>
           <AnchorPane>
                <children>
-                  <GridPane fx:id="medical_report_pane" layoutX="50.0" layoutY="521.0" minHeight="60.0" minWidth="1200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0">
+                  <GridPane fx:id="medical_report_pane" layoutX="50.0" layoutY="521.0" minHeight="60.0" minWidth="1200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="400.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,7 +75,7 @@
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <GridPane layoutX="60.0" layoutY="444.0" minHeight="170.0" minWidth="400.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0">
+                  <GridPane layoutX="60.0" layoutY="444.0" minHeight="170.0" minWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" prefWidth="0.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -124,7 +124,7 @@
                         <ChoiceBox fx:id="type_field" prefHeight="25.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <Button fx:id="add_button" layoutX="50.0" layoutY="608.0" mnemonicParsing="false" text="Добавить" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0">
+                  <Button fx:id="add_button" layoutX="50.0" layoutY="608.0" mnemonicParsing="false" text="Добавить" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="280.0">
                      <font>
                         <Font size="18.0" />
                      </font>

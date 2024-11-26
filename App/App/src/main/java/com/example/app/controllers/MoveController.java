@@ -108,7 +108,15 @@ public class MoveController {
                 stage.setMaximized(false);
                 stage.setMaximized(true);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Предупреждение закроется автоматически");
+
+                alert.show();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                pause.setOnFinished(eventt -> alert.close());
+                pause.play();
             }
         });
         fill();
@@ -196,7 +204,15 @@ public class MoveController {
             try {
                 MoveService.move(room);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Предупреждение закроется автоматически");
+
+                alert.show();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                pause.setOnFinished(eventt -> alert.close());
+                pause.play();
             }
         });
 
@@ -207,9 +223,19 @@ public class MoveController {
                 stage.setMaximized(false);
                 stage.setMaximized(true);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Предупреждение закроется автоматически");
+
+                alert.show();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                pause.setOnFinished(eventt -> alert.close());
+                pause.play();
             }
         });
+
+
 
     }
 

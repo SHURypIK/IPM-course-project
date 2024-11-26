@@ -7,11 +7,13 @@ import com.example.app.model.MedicalReport;
 import com.example.app.model.Resident;
 import com.example.app.repositories.MedicalReportRepo;
 import com.example.app.repositories.MoveRepo;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -59,11 +61,25 @@ public class MedicalReportService {
             Button editButton = new Button("Изменить");
             editButton.setOnAction(e -> {
                 try {
-                    update(report);
+                    MedicalReport reportForUpdate = new MedicalReport();
+                    reportForUpdate.setFit(healthCheckBox.isSelected());
+                    reportForUpdate.setValidUntil(validUntilPicker.getValue());
+                    reportForUpdate.setDoctor(doctorTextField.getText());
+                    reportForUpdate.setType(MedicalReportType.fromString(typeChoiceBox.getValue()));
+                    reportForUpdate.setId(report.getId());
+                    update(reportForUpdate);
                     updateResident();
                     updatePage();
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(ex.getMessage());
+                    alert.setContentText("Предупреждение закроется автоматически");
+
+                    alert.show();
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                    pause.setOnFinished(event -> alert.close());
+                    pause.play();
                 }
             });
             editButton.setDisable(true);
@@ -76,7 +92,15 @@ public class MedicalReportService {
                     updateResident();
                     updatePage();
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(ex.getMessage());
+                    alert.setContentText("Предупреждение закроется автоматически");
+
+                    alert.show();
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                    pause.setOnFinished(event -> alert.close());
+                    pause.play();
                 }
             });
             pane.add(deleteButton, 5, rowIndex);

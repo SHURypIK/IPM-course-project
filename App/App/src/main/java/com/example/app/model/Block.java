@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Block {
 
     private int id;
@@ -42,5 +40,48 @@ public class Block {
 
     public int getFloorId() {
         return floorId;
+    }
+
+    public Block(int id, int number, List<Room> rooms, Gender gender, List<String> additionalConditions, int floorId) {
+        this.id = id;
+        this.number = number;
+        this.rooms = rooms;
+        this.gender = gender;
+        this.additionalConditions = additionalConditions;
+        this.floorId = floorId;
+    }
+
+    public Block() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setAdditionalConditions(List<String> additionalConditions) {
+        this.additionalConditions = additionalConditions;
+    }
+
+    public void setFloorId(int floorId) {
+        this.floorId = floorId;
+    }
+
+    public static Block findByNumber(Floor floor, int number){
+        for(Block block: floor.getBlocks())
+            if(block.getNumber() == number)
+                return block;
+        return null;
     }
 }

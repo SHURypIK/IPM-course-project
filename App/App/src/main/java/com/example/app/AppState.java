@@ -20,6 +20,9 @@ public class AppState {
     private ArrayList<Floor> floors;
     private ArrayList<Block> blocks;
     private ArrayList<Room> rooms;
+    private Dormitory dormitory;
+    private Floor floor;
+    private Block block;
 
     public User getUser() {
         return user;
@@ -134,5 +137,29 @@ public class AppState {
                 if(floor.getId() == id)
                     return dormitory;
         return null;
+    }
+
+    public Dormitory getDormitory() {
+        return dormitory;
+    }
+
+    public void setDormitory(Dormitory dormitory) {
+        this.dormitory = dormitory;
+    }
+
+    public Floor getFloor() {
+        return floor;
+    }
+
+    public void setFloor(Floor floor) {
+        this.floor = floor;
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public void setBlock(Block block) {
+        this.block = block;
     }
 }

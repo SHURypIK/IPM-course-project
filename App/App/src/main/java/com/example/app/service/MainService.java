@@ -6,13 +6,16 @@ import com.example.app.model.Enums.Status;
 import com.example.app.model.Page;
 import com.example.app.model.ResidentShort;
 import com.example.app.repositories.MainRepo;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,7 +101,15 @@ public class MainService {
                     stage.setMaximized(false);
                     stage.setMaximized(true);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(e.getMessage());
+                    alert.setContentText("Предупреждение закроется автоматически");
+
+                    alert.show();
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                    pause.setOnFinished(eventt -> alert.close());
+                    pause.play();
                 }
             });
 
@@ -121,7 +132,15 @@ public class MainService {
             try {
                 newPage = MainRepo.pagingShort(pageIndex);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Предупреждение закроется автоматически");
+
+                alert.show();
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                pause.setOnFinished(event -> alert.close());
+                pause.play();
             }
             AppState.getInstance().setResidentPage(newPage);
             fillGridPane(gridPane, newPage.getContent());

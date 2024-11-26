@@ -40,7 +40,12 @@ public class BlockController extends BasePagingAndSortingController<BlockEntity,
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteById(@PathVariable Integer id) {
-        return super.deleteById(id);
+        try {
+            service.deleteById(id);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/delete")

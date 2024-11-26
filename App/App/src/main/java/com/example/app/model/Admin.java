@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 public class Admin extends User {
 
     private String accessKey;
@@ -24,5 +26,19 @@ public class Admin extends User {
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
+    }
+
+    public Admin() {
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // Проверка на идентичность ссылок
+        if (obj == null) return false; // Проверка на null
+        if (!(obj instanceof User)) return false; // Проверка, является ли объект User или его подклассом
+
+        User user = (User) obj;
+        return Objects.equals(getLogin(), user.getLogin()) &&
+                Objects.equals(getPassword(), user.getPassword()); // Сравнение логина и пароля
     }
 }

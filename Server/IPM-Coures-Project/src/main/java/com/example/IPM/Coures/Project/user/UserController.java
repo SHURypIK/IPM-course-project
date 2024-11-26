@@ -39,14 +39,10 @@ public class UserController extends BasePagingAndSortingController<UserEntity,Us
     public ResponseEntity getAll() {
         return super.getAll();
     }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteById(@PathVariable Integer id) {
-        return super.deleteById(id);
-    }
-    @DeleteMapping("/delete")
-    public ResponseEntity delete(@RequestBody UserDTO dto) {
+    @DeleteMapping("/delete/{login}")
+    public ResponseEntity deleteByLogin(@PathVariable String login) {
         try{
-            return ResponseEntity.ok(service.deleteByLogin(dto));
+            return ResponseEntity.ok(service.deleteByLogin(login));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(false);
         }

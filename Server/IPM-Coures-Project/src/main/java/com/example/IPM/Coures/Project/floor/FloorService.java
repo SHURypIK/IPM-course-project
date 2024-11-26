@@ -2,12 +2,18 @@ package com.example.IPM.Coures.Project.floor;
 
 import com.example.IPM.Coures.Project.additionalCondition.AdditionalConditionDTO;
 import com.example.IPM.Coures.Project.additionalCondition.AdditionalConditionMapper;
+import com.example.IPM.Coures.Project.block.BlockEntity;
 import com.example.IPM.Coures.Project.dormitory.DormitoryDTO;
+import com.example.IPM.Coures.Project.dormitory.DormitoryEntity;
 import com.example.IPM.Coures.Project.dormitory.DormitoryMapper;
 import com.example.IPM.Coures.Project.general.BaseCrudService;
+import com.example.IPM.Coures.Project.general.Enums.Status;
 import com.example.IPM.Coures.Project.general.MyError;
+import com.example.IPM.Coures.Project.resident.ResidentEntity;
+import com.example.IPM.Coures.Project.resident.ResidentRepository;
 import com.example.IPM.Coures.Project.responsiblePerson.ResponsiblePersonDTO;
 import com.example.IPM.Coures.Project.responsiblePerson.ResponsiblePersonMapper;
+import com.example.IPM.Coures.Project.room.RoomEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +31,8 @@ public class FloorService extends BaseCrudService<FloorEntity,FloorDTO,Integer> 
     private ResponsiblePersonMapper responsiblePersonMapper;
     @Autowired
     private AdditionalConditionMapper additionalConditionMapper;
+    @Autowired
+    private ResidentRepository residentRepository;
 
 
     public FloorService(FloorRepository repository, FloorMapper mapper) {
@@ -64,6 +72,21 @@ public class FloorService extends BaseCrudService<FloorEntity,FloorDTO,Integer> 
             return true;
         } catch (Exception e) {
             throw new MyError("Не получилось удалить по общежитию");
+        }
+    }
+
+    public void deleteById(int id) throws MyError {
+        try {
+            FloorEntity floor = repository.findById(id).get();
+                for(BlockEntity block : floor.getBlocks())
+                    for(RoomEntity room : block.getRooms())
+                        for(ResidentEntity resident: room.getResidents()){
+                            resident.setStatus(Status.EXPECTING);
+                            residentRepository.save(resident);
+                        }
+            repository.deleteById(id);
+        } catch (Exception e){
+            throw new MyError("Не получилось удалить" + e.getMessage());
         }
     }
 }

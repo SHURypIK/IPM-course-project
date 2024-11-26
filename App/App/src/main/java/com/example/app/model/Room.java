@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Room{
 
     private int id;
@@ -52,5 +50,51 @@ public class Room{
 
     public int getBlockId() {
         return blockId;
+    }
+
+    public Room(int id, int number, int numberOfPlaces, int numberOfAvailablePlaces, List<Resident> residents, Gender gender, List<String> additionalConditions, int blockId) {
+        this.id = id;
+        this.number = number;
+        this.numberOfPlaces = numberOfPlaces;
+        this.numberOfAvailablePlaces = numberOfAvailablePlaces;
+        this.residents = residents;
+        this.gender = gender;
+        this.additionalConditions = additionalConditions;
+        this.blockId = blockId;
+    }
+
+    public Room() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setNumberOfPlaces(int numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
+    }
+
+    public void setNumberOfAvailablePlaces(int numberOfAvailablePlaces) {
+        this.numberOfAvailablePlaces = numberOfAvailablePlaces;
+    }
+
+    public void setResidents(List<Resident> residents) {
+        this.residents = residents;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setAdditionalConditions(List<String> additionalConditions) {
+        this.additionalConditions = additionalConditions;
+    }
+
+    public void setBlockId(int blockId) {
+        this.blockId = blockId;
     }
 }
