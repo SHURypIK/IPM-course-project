@@ -62,10 +62,10 @@ public class MainService {
             Color backgroundColor;
             switch (resident.getBenefit()) {
                 case IMPORTANT:
-                    backgroundColor = Color.LIMEGREEN;
+                    backgroundColor = Color.LIGHTGREEN;
                     break;
                 case VERY_IMPORTANT:
-                    backgroundColor = Color.LIGHTGREEN;
+                    backgroundColor = Color.LIMEGREEN;
                     break;
                 case NOT_IMPORTANT:
                     backgroundColor = Color.LIGHTCORAL;

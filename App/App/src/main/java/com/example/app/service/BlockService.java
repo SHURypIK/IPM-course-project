@@ -17,10 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BlockService {
@@ -55,7 +52,7 @@ public class BlockService {
 
 
         List<Block> blocks = floor.getBlocks();
-
+        blocks.sort(Comparator.comparingInt(Block::getNumber));
         for (int i = 0; i < blocks.size(); i++) {
             Block block = blocks.get(i);
             int rowIndex = i + 1;

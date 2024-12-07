@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 public class Room{
 
     private int id;

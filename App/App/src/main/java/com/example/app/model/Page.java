@@ -5,8 +5,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 
-@Data
-@AllArgsConstructor
+
 public class Page<T> {
     private ArrayList<T> content;
     private int number;
@@ -47,5 +46,16 @@ public class Page<T> {
 
     public boolean isEmpty() {
         return empty;
+    }
+
+    public Page(ArrayList<T> content, int number, int size, long totalElements, int totalPages, boolean last, boolean first, boolean empty) {
+        this.content = content;
+        this.number = number;
+        this.size = size;
+        this.totalElements = totalElements;
+        this.totalPages = totalPages;
+        this.last = last;
+        this.first = first;
+        this.empty = empty;
     }
 }

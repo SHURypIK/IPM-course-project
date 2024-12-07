@@ -16,10 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DormitoryService {
@@ -42,7 +39,7 @@ public class DormitoryService {
 
         pane.getChildren().clear();
         pane.setVgap(20);
-
+        pane.setHgap(20);
         pane.add(new Label("Номер"), 0, 0);
         pane.add(new Label("Адрес"), 1, 0);
         pane.add(new Label("Дополнительные условия"), 2, 0);
@@ -64,12 +61,14 @@ public class DormitoryService {
         } catch (Exception e) {
             showAlert(e.getMessage());
         }
+        dormitories.sort(Comparator.comparingInt(Dormitory::getNumber));
         for (int i = 0; i < dormitories.size(); i++) {
             Dormitory dormitory = dormitories.get(i);
             int rowIndex = i + 1;
 
             Label numberLabel = new Label(Integer.toString(dormitory.getNumber()));
             pane.add(numberLabel, 0, rowIndex);
+
 
             TextField addressField = new TextField(dormitory.getAddress());
             pane.add(addressField, 1, rowIndex);

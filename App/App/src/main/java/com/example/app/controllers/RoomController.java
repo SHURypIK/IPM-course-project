@@ -279,6 +279,20 @@ public class RoomController {
             AppState.getInstance().setDormitory(dormitory);
             AppState.getInstance().setFloor(floor);
             AppState.getInstance().setBlock(block);
+            Room room = null;
+            if(block.getRooms() != null && !block.getRooms().isEmpty())
+                room = block.getRooms().get(0);
+            switch (block.getGender()) {
+                case MALE -> gender_field.setValue(Gender.MALE.getText());
+                case FEMALE -> gender_field.setValue(Gender.FEMALE.getText());
+                case NOT_EXIST -> {
+                    if (room != null && room.getGender() != null) {
+                        gender_field.setValue(room.getGender().getText());
+                    } else {
+                        gender_field.setDisable(false);
+                    }
+                }
+            }
             fill(block);
         }
 
@@ -291,7 +305,7 @@ public class RoomController {
                 block = Block.findByNumber(floor, newValue);
                 AppState.getInstance().setBlock(block);
                 Room room = null;
-                if(block.getRooms() != null || block.getRooms().isEmpty())
+                if(block.getRooms() != null && !block.getRooms().isEmpty())
                     room = block.getRooms().get(0);
                 switch (block.getGender()) {
                     case MALE -> gender_field.setValue(Gender.MALE.getText());
@@ -306,7 +320,8 @@ public class RoomController {
                 }
                 fill(block);
             } else {
-
+                gender_field.setDisable(true);
+                gender_field.setValue(null);
                 AppState.getInstance().setDormitory(null);
                 block = null;
             }

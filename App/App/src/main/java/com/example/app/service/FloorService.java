@@ -17,10 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FloorService {
@@ -61,7 +58,7 @@ public class FloorService {
 
 
         List<Floor> floors = dormitory.getFloors();
-
+        floors.sort(Comparator.comparingInt(Floor::getNumber));
         for (int i = 0; i < floors.size(); i++) {
             Floor floor = floors.get(i);
             int rowIndex = i + 1;

@@ -61,6 +61,7 @@ public class PositionService {
                 try {
                     Position positionForUpdate = new Position();
                     positionForUpdate.setName(positionField.getText());
+                    positionForUpdate.setId(position.getId());
                     update(positionForUpdate);
                     updatePage();
                 } catch (Exception ex) {

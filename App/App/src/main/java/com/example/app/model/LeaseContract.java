@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class LeaseContract {
 
     private int id;
@@ -54,6 +52,17 @@ public class LeaseContract {
     }
 
     public void setTenantFIO(String tenantFIO) {
+        this.tenantFIO = tenantFIO;
+    }
+
+    public LeaseContract() {
+    }
+
+    public LeaseContract(int id, String lessee, LocalDate validUntil, LocalDate contractDate, String tenantFIO) {
+        this.id = id;
+        this.lessee = lessee;
+        this.validUntil = validUntil;
+        this.contractDate = contractDate;
         this.tenantFIO = tenantFIO;
     }
 }

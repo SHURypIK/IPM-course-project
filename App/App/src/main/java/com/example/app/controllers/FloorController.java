@@ -126,13 +126,14 @@ public class FloorController {
             }
         });
 
+        ArrayList<Dormitory> finalDormitories1 = dormitories;
         add_button.setOnAction(event -> {
             try {
                 Floor floor = new Floor();
                 floor.setNumber(Integer.parseInt(number_field.getText()));
 
                 floor.setResponsiblePerson(getSelectedValuesPerson(person_field.getValue()));
-                floor.setDormitoryId(dormitory_field.getValue());
+                floor.setDormitoryId(Dormitory.findByNumber(finalDormitories1,dormitory_field.getValue()).getId());
                 floor.setAdditionalConditions(getSelectedValuesCondition());
                 FloorService.save(floor);
             }   catch (Exception e) {

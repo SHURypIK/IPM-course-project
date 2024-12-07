@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class MedicalReport {
 
     private String id;
@@ -64,6 +62,18 @@ public class MedicalReport {
     }
 
     public void setType(MedicalReportType type) {
+        this.type = type;
+    }
+
+    public MedicalReport() {
+    }
+
+    public MedicalReport(String id, boolean fit, String doctor, LocalDate validUntil, String patientFIO, MedicalReportType type) {
+        this.id = id;
+        this.fit = fit;
+        this.doctor = doctor;
+        this.validUntil = validUntil;
+        this.patientFIO = patientFIO;
         this.type = type;
     }
 }

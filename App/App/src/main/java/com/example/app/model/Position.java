@@ -2,7 +2,6 @@ package com.example.app.model;
 
 import lombok.Data;
 
-@Data
 public class Position {
 
     private int id;

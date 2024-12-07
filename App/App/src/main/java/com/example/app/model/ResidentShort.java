@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class ResidentShort {
 
     private String fio;
@@ -38,5 +36,15 @@ public class ResidentShort {
         this.gender = resident.getGender();
         this.status = resident.getStatus();
         this.benefit = resident.getBenefit();
+    }
+
+    public ResidentShort() {
+    }
+
+    public ResidentShort(String fio, Gender gender, Status status, SettlementBenefit benefit) {
+        this.fio = fio;
+        this.gender = gender;
+        this.status = status;
+        this.benefit = benefit;
     }
 }

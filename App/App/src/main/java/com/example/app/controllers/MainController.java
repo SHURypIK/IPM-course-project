@@ -2,6 +2,7 @@ package com.example.app.controllers;
 
 import com.example.app.AppState;
 import com.example.app.SceneManager;
+import com.example.app.repositories.BDRepo;
 import com.example.app.service.MainService;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -61,6 +62,8 @@ public class MainController {
     @FXML
     private MenuItem to_resident;
 
+    @FXML
+    private MenuItem copy_bd_button;
 
     @FXML
     void initialize() {
@@ -248,6 +251,25 @@ public class MainController {
                     Stage stage = SceneManager.getPrimaryStage();
                     stage.setMaximized(false);
                     stage.setMaximized(true);
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(e.getMessage());
+                    alert.setContentText("Предупреждение закроется автоматически");
+                    alert.show();
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(7));
+                    pause.setOnFinished(eventt -> alert.close());
+                    pause.play();
+                }
+
+
+
+            });
+
+            copy_bd_button.setOnAction(event -> {
+                try {
+                   String e = BDRepo.get();
+                   throw new Exception(e);
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(e.getMessage());

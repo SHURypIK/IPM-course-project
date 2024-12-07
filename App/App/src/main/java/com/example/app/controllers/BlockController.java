@@ -139,7 +139,7 @@ public class BlockController {
                 block.setGender(Gender.fromString(gender_field.getValue()));
                 block.setAdditionalConditions(getSelectedValuesCondition());
                 block.setNumber(100*floor.getNumber() + Integer.parseInt(number_field.getText()));
-                block.setFloorId(floor_field.getValue());
+                block.setFloorId(floor.getId());
                 BlockService.save(block);
             }   catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

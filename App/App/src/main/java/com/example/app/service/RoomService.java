@@ -17,10 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RoomService {
@@ -56,7 +53,7 @@ public class RoomService {
 
 
         List<Room> rooms = block.getRooms();
-
+        rooms.sort(Comparator.comparingInt(Room::getNumber));
         for (int i = 0; i < rooms.size(); i++) {
             Room room = rooms.get(i);
             int rowIndex = i + 1;
@@ -71,7 +68,7 @@ public class RoomService {
             List<Resident> residents = room.getResidents();
             if(!residents.isEmpty() || !block.getGender().equals(Gender.NOT_EXIST))
                 choiceBox.setDisable(true);
-            choiceBox.setValue(block.getGender().getText());
+            choiceBox.setValue(room.getGender().getText());
 
             TextField place_field = new TextField(Integer.toString(room.getNumberOfPlaces()));
             pane.add(place_field,2,rowIndex);

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 public class Floor {
 
     private int id;

@@ -64,6 +64,11 @@
                 <MenuItem fx:id="to_resident" mnemonicParsing="false" text="Перейти" />
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" style="-fx-pref-height: 50px;" text="Copy DB">
+              <items>
+                <MenuItem fx:id="copy_bd_button" mnemonicParsing="false" text="Копировать" />
+              </items>
+            </Menu>
         </menus>
          <cursor>
             <Cursor fx:constant="HAND" />
