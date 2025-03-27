@@ -8,10 +8,7 @@ import com.example.app.model.ResidentShort;
 import com.example.app.repositories.MainRepo;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -124,7 +121,7 @@ public class MainService {
     }
 
     public static void paginationSetting(Page<ResidentShort> page, Pagination pagination , GridPane gridPane){
-        pagination.setCurrentPageIndex(0);
+        pagination.setCurrentPageIndex(page.getNumber());
         pagination.setPageCount(page.getTotalPages());
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
             int pageIndex = newValue.intValue();
@@ -132,18 +129,23 @@ public class MainService {
             try {
                 newPage = MainRepo.pagingShort(pageIndex);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(e.getMessage());
-                alert.setContentText("Предупреждение закроется автоматически");
-
-                alert.show();
-
-                PauseTransition pause = new PauseTransition(Duration.seconds(7));
-                pause.setOnFinished(event -> alert.close());
-                pause.play();
+                newPage = page;
             }
             AppState.getInstance().setResidentPage(newPage);
             fillGridPane(gridPane, newPage.getContent());
         });
+    }
+
+
+    public static void search(GridPane gridPane, Pagination pagination, String string) throws Exception {
+        Page<ResidentShort> page = null;
+        try {
+            page = MainRepo.pagingShort(0,string);
+            AppState.getInstance().setResidentPage(page);
+        } catch (Exception e) {
+            page = AppState.getInstance().getResidentPage();
+        }
+        AppState.getInstance().setResidentPage(page);
+        paginationSetting(page, pagination, gridPane);
     }
 }

@@ -12,9 +12,12 @@ import com.example.IPM.Coures.Project.room.RoomMapper;
 import com.example.IPM.Coures.Project.room.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,6 +168,24 @@ public class ResidentService extends BasePagingAndSortingService<ResidentEntity,
             return page.map(mapper::fromEntityToShortDTO);
         } catch (Exception e) {
             throw new MyError("Не получилось найти записи с пагинацией");
+        }
+    }
+
+    public Page<ResidentShortDTO> findAllShort(int size, int page, Sort sort, String text) throws MyError {
+        try {
+            Pageable pageable = PageRequest.of(page,size,sort);
+            Page<ResidentEntity> firstPage = pagingAndSortingRepository.findAll(pageable);
+            for(int i = 0; i < firstPage.getTotalPages(); i++){
+                pageable = PageRequest.of(page,size,sort);
+                Page<ResidentEntity> findPage = pagingAndSortingRepository.findAll(pageable);
+                page++;
+                for (ResidentEntity entity : findPage.getContent())
+                    if(entity.getFIO().contains(text))
+                        return findPage.map(mapper::fromEntityToShortDTO);
+            }
+            throw new MyError("Не получилось найти записи с пагинацией");
+        } catch (Exception e) {
+            throw new MyError(e.getMessage());
         }
     }
 

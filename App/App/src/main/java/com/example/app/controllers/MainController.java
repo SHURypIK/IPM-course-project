@@ -22,6 +22,8 @@ public class MainController {
     @FXML
     private URL location;
 
+
+
     @FXML
     private MenuBar menu_bar;
 
@@ -64,6 +66,9 @@ public class MainController {
 
     @FXML
     private MenuItem copy_bd_button;
+
+    @FXML
+    private TextField search;
 
     @FXML
     void initialize() {
@@ -268,8 +273,8 @@ public class MainController {
 
             copy_bd_button.setOnAction(event -> {
                 try {
-                   String e = BDRepo.get();
-                   throw new Exception(e);
+                    String e = BDRepo.get();
+                    throw new Exception(e);
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(e.getMessage());
@@ -281,8 +286,6 @@ public class MainController {
                     pause.play();
                 }
 
-
-
             });
 
         } else {
@@ -290,12 +293,30 @@ public class MainController {
         }
         fill(grid_pane, pagination_element);
 
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) search(newValue);
+        });
 
     }
 
     private void fill(GridPane grid_pane, Pagination pagination){
         try {
             MainService.fill(grid_pane, pagination);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(e.getMessage());
+            alert.setContentText("Предупреждение закроется автоматически");
+            alert.show();
+
+            PauseTransition pause = new PauseTransition(Duration.seconds(7));
+            pause.setOnFinished(event -> alert.close());
+            pause.play();
+        }
+    }
+
+    private void search(String string){
+        try {
+            MainService.search(grid_pane, pagination_element, string);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(e.getMessage());

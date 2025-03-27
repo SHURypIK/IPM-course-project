@@ -159,4 +159,14 @@ public class ResidentController extends BasePagingAndSortingController<ResidentE
         }
     }
 
+    @PutMapping("/find_in_pagingShort")
+    public ResponseEntity findWithPagingShort(@RequestParam int size, @RequestParam int page, @RequestBody Sort sort, @RequestParam String text) {
+        try {
+            return ResponseEntity.ok(service.findAllShort(size, page, sort, text));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }

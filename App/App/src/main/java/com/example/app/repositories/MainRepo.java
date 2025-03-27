@@ -26,6 +26,7 @@ import java.util.Map;
 public class MainRepo {
 
     private final static String URL = "http://localhost:8080/resident/pagingShort";
+    private final static String URLSearch = "http://localhost:8080/resident/find_in_pagingShort";
     public static final Map<String, Integer> PARAMS = new HashMap<>();
 
     static {
@@ -84,4 +85,51 @@ public class MainRepo {
         }
         return null;
     }
+
+    public static Page<ResidentShort> pagingShort(int page, String string) throws Exception {
+        PARAMS.put("page", page);
+        Sort sort = new Sort(new ArrayList<>(Arrays.asList("FIO")),"ASC");
+        Gson gson = new Gson();
+        String jsonBody = gson.toJson(sort);
+
+        StringBuilder urlWithParams = new StringBuilder(URLSearch);
+        urlWithParams.append("?");
+        for (Map.Entry<String, Integer> entry : PARAMS.entrySet()) {
+            urlWithParams.append(entry.getKey())
+                    .append("=")
+                    .append(entry.getValue())
+                    .append("&");
+        }
+        urlWithParams.append("text=");
+        urlWithParams.append(string);
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPut httpPut = new HttpPut(urlWithParams.toString());
+            httpPut.setHeader("Accept", "application/json");
+            httpPut.setHeader("Content-Type", "application/json");
+            httpPut.setEntity(new StringEntity(jsonBody));
+            try (CloseableHttpResponse response = client.execute(httpPut)) {
+                int statusCode = response.getStatusLine().getStatusCode();
+                HttpEntity entity = response.getEntity();
+                if (statusCode == HttpStatus.SC_OK) {
+                    JsonElement jsonElement = gson.fromJson(EntityUtils.toString(entity), JsonElement.class);
+                    if (jsonElement.isJsonObject()) {
+                        Type pageType = new TypeToken<Page<ResidentShort>>() {}.getType();
+                        Page<ResidentShort> residentShortPage = gson.fromJson(jsonElement, pageType);
+                        return residentShortPage;
+                    } else if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isString()) {
+                        String responseString = jsonElement.getAsString();
+                    } else {
+                        throw new Exception("Unknown json");
+                    }
+                } else {
+                    throw new Exception("Bad request");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
+

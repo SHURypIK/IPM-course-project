@@ -6,9 +6,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="776.0" prefWidth="1053.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.app.controllers.MainController">
    <children>
@@ -78,7 +80,7 @@
          <content>
             <AnchorPane>
                <children>
-                  <GridPane fx:id="grid_pane" gridLinesVisible="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                  <GridPane fx:id="grid_pane" gridLinesVisible="true" layoutY="76.0" prefHeight="487.0" prefWidth="980.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="85.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,6 +89,10 @@
                     </columnConstraints>
                   </GridPane>
                   <Pagination fx:id="pagination_element" layoutX="-15.0" layoutY="631.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="983.0" style="-fx-font-size: 18px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <TextField fx:id="search" layoutX="421.0" layoutY="29.0" promptText="Search..." AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
                </children>
             </AnchorPane>
          </content>
